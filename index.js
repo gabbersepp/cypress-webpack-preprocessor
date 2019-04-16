@@ -82,8 +82,15 @@ const preprocessor = (options = {}) => {
     const outputPath = file.outputPath
 
     // we need to set entry and output
+    let entry = null
+    if (options.additionalEntry) {
+      entry = [filePath, options.additionalEntry]
+    } else {
+      entry = filePath
+    }
+
     webpackOptions = Object.assign(webpackOptions, {
-      entry: filePath,
+      entry,
       output: {
         path: path.dirname(outputPath),
         filename: path.basename(outputPath),
